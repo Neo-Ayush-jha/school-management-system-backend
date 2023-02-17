@@ -1,0 +1,64 @@
+{% extends 'admin/adminBase.html'%}
+{% block 'admin-content' %}
+    <div class="contaner">
+        <div class="row">
+            <div class="col border mt-2 border-3 p-3 border-dark mx-auto">
+                <div class="row border-bottom border-3 border-dark ">
+                    <div class="col-8 border-end "><h1 class="fs-1">View student</h1></div>
+                    <div class="col-4">
+                        {%if stu.isApproved == False %}
+                        <a href="{%url 'approve' stu.id%}" class="btn btn-success">Approve</a>
+                        {%endif%}
+                        <a href="{%url 'deleteStudent' stu.id%}" class="btn btn-danger">Delete</a>
+                        <a href="{%url 'editStudent' stu.id%}" class="btn btn-info">Edit</a>
+                    </div>
+                </div>
+                
+                <table class="table mt-3">
+                    <tr class="border border-dark">
+                        <th>Full name</th>
+                        <td class="border border-dark">{{stu.first_name}}{{stu.last_name}}</td>
+                        <td colspan="2" class="border border-dark" rowspan="4"><img src="{{stu.image.url}}" height="125px"  class="rounded-circle" alt=""></td>
+                    </tr>
+                    <tr class="border border-dark">
+                        <th>Father name</th>
+                        <td class="border border-dark">{{stu.father_name}}</td>
+                    </tr>
+                    <tr class="border border-dark">
+                        <th>Mother name</th>
+                        <td class="border border-dark">{{stu.mother_name}}</td>
+                    </tr>
+                    <tr class="border border-dark">
+                        <th>Class</th>
+                        <td class="border border-dark">{{stu.className}}</td>
+                    </tr>
+                    <tr class="border border-dark">
+                        <th>Gender</th>
+                        <td class="border border-dark">{{stu.gender}}</td>
+                        <th>Pin Code</th>
+                        <td class="border border-dark">{{stu.pin_code}}</td>
+                    </tr>
+                    <tr class="border border-dark">
+                        <th>DOB</th>
+                        <td class="border border-dark">{{stu.dob}}</td>
+                        <th>Contact</th>
+                        <td class="border border-dark">{{stu.contact}}</td>
+                    </tr>
+                    <tr class="border border-dark">
+                        <th>City</th>
+                        <td class="border border-dark">{{stu.city}}</td>
+                        <th>State</th>
+                        <td class="border border-dark">{{stu.state}}</td>
+                    </tr>
+                    <tr class="border border-dark">
+                        <th>Address</th>
+                        <td class="border border-dark">{{stu.address}}</td>
+                    
+                        <th>Approve</th>
+                        <td class="border border-dark">{{stu.isApproved}}</td>
+                    </tr>
+                </table>
+            </div>
+        </div>
+    </div>
+{% endblock 'admin-content' %}

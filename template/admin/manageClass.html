@@ -1,0 +1,38 @@
+{% extends 'admin/adminBase.html'%}
+{% block 'admin-content' %}
+    <div class="contaner">
+        <div class="row">
+            <div class="col-8 mx-auto">
+                <h1 class="fs-1">{{title|upper}}</h1>
+            </div>
+            
+            <div class="row">
+                <div class="col-6 mx-auto border border-dark">
+                    <table class="table">
+                        <tr>
+                            <th class="border">id</th>
+                            <th class="border">Class name</th>
+                            <th colspan="3" class="border">Action</th>
+                        </tr>
+                        {% for stu in classess %}
+                            <tr>
+                                <td>{{stu.id}}</td>
+                                <td>{{stu.class_name}}</td>
+                                <td><a href="{% url 'deleteClass' stu.id %}" class="btn btn-danger">Delete</a></td>
+                                <td><a href="{%url 'viewSingle' stu.id%}" class="btn btn-success">View</a></td>
+                            </tr>
+                        {%endfor%}
+                    </table>
+                </div>
+                <div class="col-6 border border-dark">
+                    <h1 class="fs-1">Insert Class</h1>
+                    <form action="" method="post">
+                        {%csrf_token%}
+                        {{form.as_p}}
+                        <input type="submit" value="Clreat class" class="w-100 btn btn-success">
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+{% endblock  %}
