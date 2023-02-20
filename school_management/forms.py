@@ -4,6 +4,11 @@ from .models import *
 class StudentForm(ModelForm):
     class Meta:
         model = Student
+        exclude =("isApproved","rf_code")
+        
+class EditStudentForm(ModelForm):
+    class Meta:
+        model = Student
         exclude =("isApproved",)
         
 # class loginForm(Form):

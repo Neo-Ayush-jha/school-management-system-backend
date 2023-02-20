@@ -18,5 +18,6 @@ urlpatterns = [
     path("single-student/<int:id>/",viewSingle,name="viewSingle"),
     path("approve-student/<int:id>/approve/",approve,name="approve"),
     path("manage/classes/view-class/<className>/",viewClassWise,name="viewClassWise"),
+    path("manage/student/scan/",scanRfCode,name="scanRfCode"),
 ] 
 urlpatterns += static(settings.MEDIA_URL,document_root=settings.MEDIA_ROOT)
