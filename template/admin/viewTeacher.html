@@ -1,0 +1,59 @@
+{% extends 'admin/adminBase.html'%}
+{% block 'admin-content' %}
+    <div class="contaner">
+        <div class="row">
+            <div class="col border mt-2 border-3 p-3 border-dark mx-auto">
+                <div class="row border-bottom border-3 border-dark ">
+                    <div class="col-8 border-end "><h1 class="fs-1">View student</h1></div>
+                    <div class="col-4">
+                        {%if stu.isApproved == False %}
+                        <a href="{%url 'approveTeacher' stu.id%}" class="btn btn-success">Approve</a>
+                        {%endif%}
+                        <a href="{%url 'deleteTeacher' stu.id%}" class="btn btn-danger">Delete</a>
+                        <a href="{%url 'editTeacher' stu.id%}" class="btn btn-info">Edit</a>
+                    </div>
+                </div>
+                
+                <table class="table mt-3">
+                    <tr class="border border-dark">
+                        <th>Full name</th>
+                        <td class="border border-dark">{{stu.t_name}}</td>
+                    </tr>
+                    
+                    <tr class="border border-dark">
+                        <th>Subject</th>
+                        <td class="border border-dark">{{stu.t_subject}}</td>
+                    </tr>
+                    <tr class="border border-dark">
+                        <th>Gender</th>
+                        <td class="border border-dark">{{stu.t_gender}}</td>
+                    </tr>
+                    <tr class="border border-dark">
+                        <th>DOB</th>
+                        <td class="border border-dark">{{stu.t_dob}}</td>
+                    </tr>
+                    <tr class="border border-dark">
+                        <th>Contact</th>
+                        <td class="border border-dark">{{stu.t_contact}}</td>
+                    </tr>
+                    <tr class="border border-dark">
+                        <th>Address</th>
+                        <td class="border border-dark">{{stu.t_address}}</td>
+                    
+                        <th>Approve</th>
+                        <td class="border border-dark">{{stu.isApproved}}</td>
+                    </tr>
+                    <tr class="border border-dark">
+                        <th>Salary</th>
+                        <td class="border border-dark">{{stu.salary}}</td>
+                    
+                        <th>Payment</th>
+                        <td class="border border-dark"><input type="submit" id="pay_btn" value="Pay fee" class="btn btn-success"></td>
+                    </tr>
+                </table>
+            </div>
+        </div>
+    </div>
+
+   
+{% endblock 'admin-content' %}

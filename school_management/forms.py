@@ -18,3 +18,12 @@ class ClassForm(ModelForm):
     class Meta:
         model =Classes
         fields="__all__"
+
+class TeacherForm(ModelForm):
+    class Meta:
+        model = Teacher
+        exclude =("t_subject","isApproved","salary",)
+class EditTeacherForm(ModelForm):
+    class Meta:
+        model = Teacher
+        fields = "__all__"

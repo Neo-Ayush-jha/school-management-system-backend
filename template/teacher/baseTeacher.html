@@ -1,0 +1,23 @@
+{% extends 'base.html'%}
+{% block 'content' %}
+<div class="container-flex">
+    <div class="container">
+        <div class="row my-3">
+            <div class="col-3">
+                <ul class="list-group">
+                    <li class="list-group-item bg-secondary"><a href="" class="btn w-100 rounded-0">Manage Staffs</a></li>
+                    <li class="list-group-item bg-secondary"><a href="" class="btn w-100 rounded-0">Manage Teachers</a></li>
+                    <li class="list-group-item bg-secondary"><a href="" class="btn w-100 rounded-0">Manage Batches</a></li>
+                    <li class="list-group-item bg-secondary"><a href="" class="btn w-100 rounded-0">Manage Attendance</a></li>
+                    <li class="list-group-item bg-secondary"><a href="" class="btn w-100 rounded-0">Manage Payments</a></li>
+                    <li class="list-group-item bg-secondary"><a href="" class="btn w-100 rounded-0">Settings</a></li>
+                </ul>
+            </div>
+            <div class="col-9">
+                {% block 'teacher-content' %}
+                {% endblock %}
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}

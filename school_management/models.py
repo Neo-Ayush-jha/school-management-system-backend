@@ -22,6 +22,22 @@ ClassList=(
     ("11","11"),
     ("12","12"),
 )
+SubjectName=(
+    ("English","English"),
+    ("Maths","Maths"),
+    ("Hindi","Hindi"),
+    ("Science","Science"),
+    ("S.St","S.St"),
+    ("Sanskrit","Sanskrit"),
+    ("Computer","Computer"),
+    ("Drawing","Drawing"),
+    ("P.T","P.T"),
+    ("Evs","Evs"),
+    ("G.k","G.k"),
+    ("Urdu","Urdu"),
+    ("Hindi Grammer","Hindi Grammer"),
+    ("English Grammer","English Grammer"),
+)
 # Create your models here.
 class Classes(models.Model):
     class_name=models.CharField(max_length=100,choices=ClassList)
@@ -47,3 +63,18 @@ class Student(models.Model):
     rf_code= models.CharField(max_length=100,default=None,blank=True,null=True,unique=True)
     def __str__(self):
         return self.first_name
+
+class Subject(models.Model):
+    subject_name = models.CharField(max_length=100,choices=SubjectName)
+class Teacher(models.Model):
+    t_name = models.CharField(max_length=150)
+    t_contact = models.IntegerField()
+    t_email = models.EmailField()
+    t_dob=models.DateField()
+    t_address = models.TextField()
+    isApproved = models.BooleanField(default=False)
+    salary = models.IntegerField(max_length=100, default=None,blank=True,null=True,)
+    t_gender=models.CharField(max_length=10,choices=GENDER)
+    t_subject = models.ForeignKey("Subject",on_delete=models.CASCADE,default=None,blank=True,null=True,unique=True)
+    def __str__(self):
+        return self.t_name

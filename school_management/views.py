@@ -4,6 +4,7 @@ from .models import *
 from django.contrib.auth.forms import AuthenticationForm
 from django.contrib.auth.decorators import login_required
 from django.contrib.auth import authenticate,login as loginfun,logout as logoutfunction
+
 def homepage(r):
     return render(r,"index.html")
 def applyForm(req):
@@ -98,4 +99,47 @@ def scanRfCode(req):
         std=get_list_or_404(Student,rf_code=code)
         return redirect(viewSingle,std.id)
     except:
-        return redirect(manageStudent)
+        return redirect(manageStudent) 
+
+def teacherHomePage(req):
+    return render(req,"teacher/index.html")
+def teacherApply(req):
+    form=TeacherForm(req.POST or None,req.FILES or None)
+    if req.method =="POST":
+        if form.is_valid():
+            form.save()
+            return redirect(homepage)
+        else:
+            return redirect(homepage)
+    return render(req,"teacher/applyTeacher.html",{"form":form})
+
+def manageTeacher(req):
+    data={}
+    data['title']="Manage Teacher"
+    data["teachers"]= Teacher.objects.filter(isApproved=True)
+    return render(req,"admin/manageTeacher.html",data)
+def manageNewTeacher(req):
+    data={}
+    data["title"]="Manage New Teacher"
+    data["teachers"]= Teacher.objects.filter(isApproved=False)
+    return render(req,"admin/manageTeacher.html",data)
+def deleteTeacher(req,id):
+    teacher= Teacher.objects.get(pk=id)
+    teacher.delete()
+    return redirect(manageTeacher)
+def editTeacher(req,id):
+    teacher= Teacher.objects.get(pk=id)
+    form = EditTeacherForm(req.POST or None , req.FILES or None,instance = teacher)
+    if req.method=="POST":
+        if form.is_valid():
+            form.save()
+            return redirect(manageTeacher)
+    return render(req,"admin/editManageTeacher.html",{"form":form})
+def viewTeacher(req,id):
+    teacher=Teacher.objects.get(pk=id)
+    return render(req,"admin/viewTeacher.html",{"stu":teacher})
+def approveTeacher(req,id):
+    stu=Teacher.objects.get(pk=id)
+    stu.isApproved=True
+    stu.save()
+    return redirect(manageTeacher)
