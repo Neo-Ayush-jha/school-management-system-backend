@@ -38,6 +38,20 @@ SubjectName=(
     ("Hindi Grammer","Hindi Grammer"),
     ("English Grammer","English Grammer"),
 )
+MONTHS = (
+    ("jan","january"),
+    ("feb","feb"),
+    ("march","march"),
+    ("april","april"),
+    ("may","may"),
+    ("june","june"),
+    ("july","july"),
+    ("aug","aug"),
+    ("sep","sep"),
+    ("oct","oct"),
+    ("nov","nov"),
+    ("dec","dec"),
+)
 # Create your models here.
 class Classes(models.Model):
     class_name=models.CharField(max_length=100,choices=ClassList)
@@ -57,7 +71,7 @@ class Student(models.Model):
     pin_code=models.IntegerField()
     contact=models.IntegerField()
     image=models.ImageField(upload_to="photo/",null=True,blank=True)
-    dob=models.DateField()
+    dob = models.DateField(help_text="use MM/DD/YYYY format")
     className=models.ForeignKey("Classes",on_delete=models.CASCADE)
     isApproved = models.BooleanField(default=False)
     rf_code= models.CharField(max_length=100,default=None,blank=True,null=True,unique=True)
@@ -70,7 +84,7 @@ class Teacher(models.Model):
     t_name = models.CharField(max_length=150)
     t_contact = models.IntegerField()
     t_email = models.EmailField()
-    t_dob=models.DateField()
+    t_dob=models.DateField(help_text="use MM/DD/YYYY format")
     t_address = models.TextField()
     isApproved = models.BooleanField(default=False)
     salary = models.IntegerField(max_length=100, default=None,blank=True,null=True,)
@@ -78,3 +92,13 @@ class Teacher(models.Model):
     t_subject = models.ForeignKey("Subject",on_delete=models.CASCADE,default=None,blank=True,null=True,unique=True)
     def __str__(self):
         return self.t_name
+
+class Payment(models.Model):
+    student = models.ForeignKey(Student, on_delete=models.CASCADE)
+    month = models.CharField(max_length=200, choices=MONTHS)
+    date_of_payment = models.DateField(auto_now=False, null=True,blank=True)
+    status = models.BooleanField(default=False)
+    amount = models.IntegerField(default=1000)
+
+    def __str__(self):
+        return self.student.first_name + " - " + self.month

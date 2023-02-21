@@ -5,6 +5,8 @@ from django.contrib.auth.forms import AuthenticationForm
 from django.contrib.auth.decorators import login_required
 from django.contrib.auth import authenticate,login as loginfun,logout as logoutfunction
 
+from datetime import datetime
+
 def homepage(r):
     return render(r,"index.html")
 def applyForm(req):
@@ -63,10 +65,20 @@ def editStudent(req,id):
 @login_required
 def viewSingle(req,id):
     std = Student.objects.get(pk=id)
-    return render(req,"admin/SingleView.html",{"stu":std})
+    payments = Payment.objects.filter(student=std)
+
+    return render(req,"admin/SingleView.html",{"stu":std,"payments":payments})
 @login_required
 def approve(req,id):
     stu=Student.objects.get(id=id,isApproved=False)
+    currentMonth = datetime.now().month
+    for month in range(currentMonth-1, 12):
+        p = Payment()
+        p.student = stu
+        p.month = MONTHS[month][0]
+        p.amount = 800
+        p.save()
+
     stu.isApproved=True
     stu.save()
     return redirect(manageStudent)

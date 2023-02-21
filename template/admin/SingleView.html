@@ -66,6 +66,35 @@
                     </tr>
                 </table>
             </div>
+            <div class="col border mt-2 border-3 p-3 border-dark mx-auto">
+                <h1>My Payments </h1>
+                <table class="table mt-3">
+                    <tr>
+                        <th>id</th>
+                        <th>month</th>
+                        <th>amount</th>
+                        <th>status</th>
+                        <th>date of payment</th>
+                        <th>action</th>
+                    </tr>
+                   {%for payment in payments %}
+                   <tr>
+                            <td class="p-2">{{ payment.id }}</td>
+                            <td class="p-2">{{ payment.month }}</td>
+                            <td class="p-2">{{ payment.amount }}</td>
+                            <td class="p-2">{{ payment.status }}</td>
+                            <td class="p-2">{{ payment.date_of_payment }}</td>
+                            <td class="p-2">
+                                {%if payment.date_of_payment == None%}
+                                <a href="" class="btn btn-primary">Pay</a>
+                                {%else%}
+                                <a href="" class="btn btn-success">Due</a>
+                                {%endif%}
+                            </td>
+                   </tr>
+                   {% endfor %}
+                </table>
+            </div>
         </div>
     </div>
 
